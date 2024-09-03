@@ -15,12 +15,13 @@ provider "google" {
 
 
 module "service-account" {
-  source = "../"
+  source = "../../"
 
   name        = "test"
   environment = var.environment
   label_order = var.label_order
 
+  module_enabled                             = true
   service_account_enabled                    = true
   project_id                                 = "clouddrove-1"
   service_account_key_enabled                = true
@@ -31,3 +32,16 @@ module "service-account" {
   roles                                      = ["roles/iam.serviceAccountUser", "roles/editor"]
   members                                    = ["user:Example.example@example.com", "user:Example.example@example.com"]
 }
+
+module "iam_workload_identity" {
+  source = "../../"
+
+  enable_oidc           = true
+  project_id            = "clouddrove-1"
+  wip_pool_id           = "wip-pool-id"
+  wip_pool_display_name = "GitHub Workload Identity Pool"
+  wip_provider_id       = "wip-provider-id"
+  wip_service_account   = module.service-account.email
+  organization_name     = "my-github-org"
+  repository_name       = ["example1/example", "example2/example"]
+} 

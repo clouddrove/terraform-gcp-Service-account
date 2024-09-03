@@ -44,3 +44,20 @@ resource "google_service_account_iam_binding" "admin-account-iam" {
   role               = var.roles[count.index]
   members            = var.members
 }
+
+# ------------------------------------------------------------------------------
+# IAM_Workload_Identity_Pool
+# ------------------------------------------------------------------------------
+
+module "iam_workload_identity" {
+  source = "./modules/gcp_github_oidc"
+
+  enable_oidc           = var.enable_oidc
+  project_id            = var.project_id
+  wip_pool_id           = var.wip_pool_id
+  wip_pool_display_name = var.wip_pool_display_name
+  wip_provider_id       = var.wip_provider_id
+  wip_service_account   = var.wip_service_account
+  organization_name     = var.organization_name
+  repository_name       = var.repository_name
+}  

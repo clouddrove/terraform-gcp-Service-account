@@ -41,3 +41,7 @@ output "private_key" {
   value       = join("", google_service_account_key.default[*].private_key)
   description = "The private key in JSON format, base64 encoded."
 }
+
+output "wip_pool_id" {
+  value = module.iam_workload_identity.workload_identity_pool_id
+}
