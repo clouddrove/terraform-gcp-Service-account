@@ -31,4 +31,3 @@
 | private\_key | The private key in JSON format, base64 encoded. |
 | public\_key | The public key, base64 encoded. |
 | unique\_id | The unique id of the service account. |
-
